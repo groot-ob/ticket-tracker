@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import api from '../api/api.ts'
+import api from '../service/tickerService.ts'
 import type { Ticket } from '../types/Ticket.ts'
 import TicketForm from './TicketForm.vue'
 
