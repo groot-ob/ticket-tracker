@@ -50,3 +50,19 @@ backend/.factorypath
 backend/help.md
 backend/local-env/.env
 backend/local-env/.data
+
+# ==========================================
+# Frontend Module (Vue.js / Node / Vite)
+# ==========================================
+
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+
+frontend/.vscode/
+frontend/.eslintcache
+frontend/.stylelintcache
+
+frontend/test-results/
+frontend/playwright-report/
