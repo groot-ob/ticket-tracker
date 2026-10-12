@@ -71,13 +71,15 @@ The backend server will run on ``http://localhost:8080`` and the frontend can be
 Navigate to ``http://localhost:8080/swagger-ui/index.html#/`` to view the API endpoints.
 
 
+
+
 ### Decisions and Tradeoffs
  - Used docker docker to containerize our application and run flyway migration scripts instead of running them separately.
  - Wrote web slice tests for the `TicketController.java`. I've also added test containers which I will use to write integration tests (Specificallly database integration test.) This is work in progress.
  - For the `priority` and `status` columns on our database I used `varchar` instead of `enum`. The assumption here is that if the application grows new values will require to run an alter table query on the db table.
 
 
-### Considerations witm more time
+### Considerations with more time
 Given more time I woulld:
  - Add user authentication and ensure role-based access.
- - Add logs and observability to keep track on user actions such as  creating , deleting, and updating a ticket
+ - Add logs and observability/monitoring to keep track on user actions such as  creating , deleting, and updating a ticket
