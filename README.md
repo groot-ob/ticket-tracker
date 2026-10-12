@@ -61,9 +61,10 @@ cd backend
 
 ### Frontend
 
-To run the Vuejs frontend. Make sure you are inside the directory `/mini-ticket-tracker/frontend` and run
+To run the Vuejs frontend. Make sure you are inside the directory `/mini-ticket-tracker/frontend` and run the cammands below to install dependencies and start the Vue.js app
 ``` 
 cd frontend
+npm install 
 npm run dev
 ```
 
@@ -83,3 +84,7 @@ Navigate to ``http://localhost:8080/swagger-ui/index.html#/`` to view the API en
 Given more time I woulld:
  - Add user authentication and ensure role-based access.
  - Add logs and observability/monitoring to keep track on user actions such as  creating , deleting, and updating a ticket
+ - Comprehensive e2e tests.  
+
+### Work in Progress
+ - Database integration tests with test containers
