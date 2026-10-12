@@ -1,3 +1,57 @@
+server:
+  port: 8080
+
 spring:
   application:
-    name: backend
+    name: ticket_tracker_backend
+  datasource:
+    hikari:
+      initializationFailTimeout: -1
+      connectionTimeout: 30000
+      validationTimeout: 5000
+      maxLifetime: 600000
+      leakDetectionThreshold: 10000
+
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/db}
+    username: ${SPRING_DATASOURCE_USERNAME:user}
+    password: ${SPRING_DATASOURCE_PASSWORD:passw0rd}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        default_schema: ticket_tracker
+
+  logging:
+    pattern:
+      correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
+  mvc:
+    problemdetails:
+      enabled: true
+
+  flyway:
+    enabled: true
+    schemas: ticket_tracker
+    default-schema: ticket_tracker
+    locations: classpath:migrations
+    create-schemas: true
+    baseline-on-migrate: true
+    sql-migration-prefix: V
+    sql-migration-separator: __
+    sql-migration-suffixes: .sql
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["prometheus"]
+
+
+

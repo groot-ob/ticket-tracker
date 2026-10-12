@@ -1,0 +1,56 @@
+services:
+  app:
+    container_name: "ticket-tracker"
+    build:
+      context: ../
+      dockerfile: Dockerfile
+
+    restart: always
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ticket-tracker-postgres:${POSTGRES_PORT}/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SERVER_FORWARD_HEADERS_STRATEGY: native
+      SPRING_FLYWAY_ENABLED: "false"
+    depends_on:
+      flyway:
+        condition: service_completed_successfully
+
+  postgres:
+    container_name: "ticket-tracker-postgres"
+    image: postgres:17-alpine
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ${POSTGRES_DATA_DIR:-./pgdata}:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  flyway:
+    container_name: "ticket-tracker-flyway"
+    image: flyway/flyway:latest
+    command: >
+      -url=jdbc:postgresql://ticket-tracker-postgres:5432/db
+      -user=${POSTGRES_USER}
+      -password=${POSTGRES_PASSWORD}
+      -schemas=ticket_tracker
+      -locations=filesystem:/flyway/sql
+      -connectRetries=60
+      -X
+      migrate
+    volumes:
+      - ../src/main/resources/migrations:/flyway/sql
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: on-failure
