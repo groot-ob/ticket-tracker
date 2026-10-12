@@ -32,7 +32,7 @@ cd mini-ticket-tracker
 ```
 
 ### Step 2: Configure the Backend Database
-Ensure PostgreSQL is running locally or via Docker. To use docker navigate to **/backend/local-env** and create a `.env` file with the following environment variables
+Ensure PostgreSQL is running locally or via Docker. To use docker navigate to **/backend/local-env** and create a `.env` file with the following environment variables.
 
 ```bash
 export POSTGRES_DB=your-postgres-db
@@ -43,7 +43,7 @@ export POSTGRES_DATA_DIR=.data/postgres
 export SPRING_PROFILES_ACTIVE=local
 export SPRING_DATASOURCE_URL=jdbc:postgresql://ticket-tracker-postgres:5432/db
 ```
-
+Inside the `frontend` directory ensure that you have a `.env` file with `VITE_API_BASE_URL` . The base url of the backend.
 Inside the `/backend/local-env` directory spin up docker with the following command
 
 ``
