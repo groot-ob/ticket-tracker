@@ -46,7 +46,6 @@ spring:
     sql-migration-separator: __
     sql-migration-suffixes: .sql
 
-
 management:
   endpoints:
     web:
