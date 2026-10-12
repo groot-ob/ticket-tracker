@@ -85,7 +85,6 @@ const handleDelete = async (id?: number) => {
   }
 }
 
-// Explicit pagination methods
 const nextPage = () => {
   if (currentPage.value < totalPages.value - 1) {
     currentPage.value++
@@ -98,13 +97,11 @@ const prevPage = () => {
   }
 }
 
-// Reset to page 0 whenever the status filter changes
 watch(selectedStatus, () => {
   currentPage.value = 0
   fetchTickets()
 })
 
-// Fetch when pagination page changes
 watch(currentPage, () => {
   fetchTickets()
 })
@@ -143,7 +140,7 @@ onMounted(() => {
             v-model="selectedStatus"
             class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2 bg-white"
         >
-          <option value="">All Statuses</option>
+          <option value="">All </option>
           <option value="OPEN">Open</option>
           <option value="IN_PROGRESS">In Progress</option>
           <option value="CLOSED">Closed</option>
