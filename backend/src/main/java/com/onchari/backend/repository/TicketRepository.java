@@ -1,5 +1,7 @@
-package org.example.backend.ticket;
+package com.onchari.backend.repository;
 
+import com.onchari.backend.model.entity.Ticket;
+import com.onchari.backend.model.entity.enums.Status;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
