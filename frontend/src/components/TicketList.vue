@@ -38,7 +38,7 @@ const fetchTickets = async () => {
       totalPages.value = 1
     } else {
       tickets.value = data.content || []
-      totalPages.value = data.totalPages || 1
+      totalPages.value = data.page?.totalPages > 0 ? data.page.totalPages : 1
     }
   } catch (err) {
     error.value = 'Failed to load tickets from the backend.'
@@ -115,7 +115,6 @@ onMounted(() => {
 <template>
   <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-8">
 
-    <!-- Embedded Statistics Cards -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
       <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg shadow-xs">
         <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Open</p>
