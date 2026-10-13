@@ -4,7 +4,7 @@ A full-stack support ticket tracking application using **Java 21 / Spring Boot**
 
 ---
 
-## 🚀 Tech Stack
+##  Tech Stack
 
 * **Backend:** Java 21, Spring Boot, Spring Data JPA, PostgreSQL, Flyway, Maven, JUnit 5 / Testcontainers, Problem Details.
 * **Frontend:** Vue 3 (Composition API), TypeScript, Vite, Tailwind CSS, Axios.
@@ -58,6 +58,10 @@ To run the backend navigate to `/mini-ticket-tracke/backend/` and run the follow
 cd backend
 ./mvnw spring-boot:run
 ```
+To run the tests, inside the ``/backend`` directory execute this command below 
+````
+mvn test
+````
 
 ### Frontend
 
@@ -75,16 +79,18 @@ Navigate to ``http://localhost:8080/swagger-ui/index.html#/`` to view the API en
 
 
 ### Decisions and Tradeoffs
- - Used docker docker to containerize our application and run flyway migration scripts instead of running them separately.
+ - Used docker to containerize our application and run flyway migration scripts instead of running them separately.
+ - New tickets can be created with any status and priority. Ideally in a real production setup , the status should move from OPEN->IN_PROGRESS-> CLOSED
  - Wrote web slice tests for the `TicketController.java`. I've also added test containers which I will use to write integration tests (Specificallly database integration test.) This is work in progress.
  - For the `priority` and `status` columns on our database I used `varchar` instead of `enum`. The assumption here is that if the application grows new values will require to run an alter table query on the db table.
+ - Stats count returns only the data about available tcikets bby status. If a ticket with status say `closed` is not available the API wont retun that data on response.
 
 
 ### Considerations with more time
-Given more time I woulld:
+Given more time I would:
  - Add user authentication and ensure role-based access.
  - Add logs and observability/monitoring to keep track on user actions such as  creating , deleting, and updating a ticket
  - Comprehensive e2e tests.  
 
 ### Work in Progress
- - Database integration tests with test containers
+ - Database integration tests with test containers - **DONE**
